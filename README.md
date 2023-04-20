@@ -1,3 +1,3 @@
 # Stress-Anxiety-Classification-LSTM
 
-![](stress_home.png)
+![](webapp.py/static/stress_home.png)
