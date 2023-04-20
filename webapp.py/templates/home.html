@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stress-Anxiety Detection</title>
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        input[type="text"] {
+            width: 50%;
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .Anxiety {
+            color: green;
+        }
+
+        .Stress {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <h1>Stress-Anxiety Detection</h1>
+    </center>
+    
+    <form action="/" method="post">
+        <label for="text">Enter some text:</label>
+        <input type="text" id="text" name="text">
+        <input type="submit" value="Predict">
+    </form>
+    
+    {% if prediction %}
+    <h2>The text "<span class="{{ prediction }}">{{ text_input }}</span>" is <span class="{{ prediction }}">{{ prediction }}</span></h2>
+        {% if probability %}
+            <h2>Probability: {{ probability }}</h2>
+        {% endif %}
+    {% endif %}
+
+    {% if input_text %}
+        <h2>{{ input_text }}</h2>
+    {% endif %}
+
+</body>
+</html>

@@ -19,7 +19,7 @@ def preprocess_text(df, column):
     df[column] = df[column].apply(lambda x: re.sub(r'\W+', ' ', x))
     df[column] = df[column].apply(lambda x: x.lower())
     # Remove extra whitespaces
-    # df[column] = df[column].apply(lambda x: re.sub(r'\s+', ' ', x.strip()))
+    df[column] = df[column].apply(lambda x: re.sub(r'\s+', ' ', x.strip()))
     return df
 
 def train_model(model, train_loader, val_loader, optimizer, criterion,params,vocab_size):

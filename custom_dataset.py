@@ -12,7 +12,7 @@ class TextDataset(Dataset):
         self.words = []
         
         for text in self.data['text']:
-            for word in word_tokenize(text):
+            for word in text.split():
                 if word not in self.words:
                     self.words.append(word)
             
