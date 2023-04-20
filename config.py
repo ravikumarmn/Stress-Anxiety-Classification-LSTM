@@ -1,0 +1,12 @@
+EXPERIMENT_NAME = "stress_detection_using_lstm"
+BASE_DIR = "stress_detection/"
+DATA_DIR = "dataset/"
+PAD_TOKEN = "<PAD>"
+MAX_SEQUENCE_LENGTH = 310
+EMBEDDING_DIM = 128
+HIDDEN_DIM = 64
+OUTPUT_FEATURES = 1
+EPOCHS = 25
+MODEL_SAVE_PATH = f"result/{EXPERIMENT_NAME.lower()}_emdb_{EMBEDDING_DIM}_hidden_{HIDDEN_DIM}_epoch_{EPOCHS}.pt"
+PATIENCE = 3
+MAPPING = {0: "Anxiety", 1: "Stress"}
