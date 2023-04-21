@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+css
+
+    h1 {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .image-container {
+        text-align: center;
+    }
+
+    img {
+        max-width: 100%;
+        margin-top: 30px;
+    }
+
+    .back-button {
+        display: block;
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .back-button a {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <div class="image-container">
+            {% for image in images %}
+                <img src="{{ image }}" alt="Confusion Matrix">
+            {% endfor %}
+        </div>
+        <div class="back-button">
+            <a href="/">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

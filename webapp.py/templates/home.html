@@ -3,46 +3,114 @@
 <head>
     <title>Stress-Anxiety Detection</title>
     <style>
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 50px;
+ /* Navbar */
+ .navbar {
+            overflow: hidden;
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            width: 100%;
         }
 
-        input[type="text"] {
-            width: 50%;
-            margin-bottom: 20px;
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
+css
 
-        input[type="submit"] {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border-radius: 5px;
-            border: none;
-            font-size: 16px;
-            cursor: pointer;
-        }
+    .navbar a {
+        float: left;
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
 
-        h2 {
-            text-align: center;
-        }
+    .navbar a:hover {
+        background-color: #ddd;
+        color: black;
+    }
 
-        .Anxiety {
-            color: green;
-        }
+    /* Form */
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 100px;
+    }
 
-        .Stress {
-            color: red;
-        }
+    input[type="text"] {
+        width: 50%;
+        margin-bottom: 20px;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    input[type="submit"] {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border-radius: 5px;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    .Anxiety {
+        color: green;
+    }
+
+    .Stress {
+        color: red;
+    }
+
+    /* Button */
+    button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border-radius: 5px;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    /* Result page */
+    .result {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 100px;
+    }
+
+    .result img {
+        margin: 20px;
+        max-width: 400px;
+    }
+    .res {
+        background-color: #bfefc1;
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
     </style>
 </head>
 <body>
+    <!-- <center>
+        <button onclick="location.href='/result'" type="button">View Results</button>
+    </center> -->
+
+    <div class="res">
+        <a href="{{ url_for('result') }}" class="w3-bar-item w3-button">Result</a>
+    </div>
+    
     <center>
         <h1>Stress-Anxiety Detection</h1>
     </center>

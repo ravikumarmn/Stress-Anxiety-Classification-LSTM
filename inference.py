@@ -1,59 +1,47 @@
-import json
-from subword import *
-import torch
+# import json
+# from subword import *
+# import torch
+# from utils import list2dict
+# from model import StressClassifier
 
-from model import StressClassifier
+# checkpoint_path = "result/stress_detection_using_lstm_emdb_128_hidden_64_epoch_25.pt"
+# checkpoint = torch.load(checkpoint_path)
 
-checkpoint_path = "result/stress_detection_using_lstm_emdb_128_hidden_64_epoch_25.pt"
-checkpoint = torch.load(checkpoint_path)
-
-# # Load the saved train and validation losses and accuracies
-# train_losses = checkpoint['train']['train_losses']
-# train_accuracy = checkpoint['train']['train_accuracy']
-# val_losses = checkpoint['validation']['validation_losses']
-# val_accuracy = checkpoint['validation']['validation_accuracy']
-
-
-params = checkpoint["params"]
-vocab_size = checkpoint['vocab_size']
-
-model = StressClassifier(vocab_size,params)
-model.load_state_dict(checkpoint["model_state_dict"]) # model_state_dict
-model.eval()
-
-f = json.load(open("result/word_to_idx_to_word.json","r"))
-word2index = f['char_to_idx']
-index2word = f['idx_to_char']
-all_final = extract_data()
-
-while True:
-    text_input  = input("\nEnter Text Here: ")
-    tokenized_sentence=word_tokenize(text_input)
-    final_emotions_list_for_each_word=[]
-    for i in tokenized_sentence:
-        final_emotions_list_for_each_word.append(find_sentence_sub_emotion(i,all_final))
-    try:   
-        if text_input in ["q","quit","bye","close"]:
-            break
-        else:
-            input_ids = torch.tensor([word2index[i] for i in text_input.lower().split()],dtype=torch.long)
-            probs = model(input_ids.unsqueeze(0))
-            if probs.item() > 0.5:
-                out = params["MAPPING"][1]
-                print({out:round(probs.item(),2)})
-            else:
-                out = params["MAPPING"][0]
-                print({out:round(probs.item(),2)})
-    except KeyError:
-        print("Given input is not valid")
+# # # Load the saved train and validation losses and accuracies
+# # train_losses = checkpoint['train']['train_losses']
+# # train_accuracy = checkpoint['train']['train_accuracy']
+# # val_losses = checkpoint['validation']['validation_losses']
+# # val_accuracy = checkpoint['validation']['validation_accuracy']
 
 
-# actual_sentence='The most important thing is to try and inspire people. plunder'
+# params = checkpoint["params"]
+# vocab_size = checkpoint['vocab_size']
 
-# print('actual sentence : ',actual_sentence)
-# tokenized_sentence=word_tokenize(actual_sentence)
-# print('tokenized sentence : ',tokenized_sentence)
+# model = StressClassifier(vocab_size,params)
+# model.load_state_dict(checkpoint["model_state_dict"]) # model_state_dict
+# model.eval()
+
+# f = json.load(open("result/word_to_idx_to_word.json","r"))
+# word2index = f['char_to_idx']
+# index2word = f['idx_to_char']
 # all_final = extract_data()
-# final_emotions_list_for_each_word=[]
+
+# text_input  = "i am stress"
+# tokenized_sentence=word_tokenize(text_input)
+# emotion_dict =dict()
 # for i in tokenized_sentence:
-#     final_emotions_list_for_each_word.append(find_sentence_sub_emotion(i,all_final))
+#     emotion_dict[i] = dict(find_sentence_sub_emotion(i,all_final))
+#     try:   
+#         if text_input in ["q","quit","bye","close"]:
+#             break
+#         else:
+#             input_ids = torch.tensor([word2index[i] for i in text_input.lower().split()],dtype=torch.long)
+#             probs = model(input_ids.unsqueeze(0))
+#             if probs.item() > 0.5:
+#                 out = params["MAPPING"][1]
+#                 print({out:round(probs.item(),2)})
+#             else:
+#                 out = params["MAPPING"][0]
+#                 print({out:round(probs.item(),2)})
+#     except KeyError:
+#         print("Given input is not valid")

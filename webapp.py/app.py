@@ -1,10 +1,13 @@
 from flask import Flask, render_template, request
+
 app = Flask(__name__)
 import json
-from subword import *
+import os
+
 import torch
 
 from model import StressClassifier
+from subword import *
 
 checkpoint_path = "result/stress_detection_using_lstm_emdb_128_hidden_64_epoch_25.pt"
 checkpoint = torch.load(checkpoint_path)
@@ -32,12 +35,15 @@ def home():
         text_input = request.form.get('text')
         
         if text_input:
+            empty_dict = {}
+            with open("result/subword_save.json", "w") as f:
+                json.dump(empty_dict, f)
+
             tokenized_sentence=word_tokenize(text_input)
-            final_emotions_list_for_each_word=[]
-            
+            my_dict_final = dict()
             for i in tokenized_sentence:
-                final_emotions_list_for_each_word.append(find_sentence_sub_emotion(i,all_final))
-                
+                my_dict_final[i] = find_sentence_sub_emotion(i, all_final)
+
             try:   
                 input_ids = torch.tensor([word2index[i] for i in text_input.lower().split()],dtype=torch.long)
                 probs = model(input_ids.unsqueeze(0))
@@ -50,9 +56,14 @@ def home():
                 probability = round(probs.item(), 3)
                 
             except KeyError:
-                input_text = "I Did not understand."
+                input_text = "I Did Not Understand."
         
     return render_template("home.html", prediction=prediction, probability=probability, text_input=text_input, input_text=input_text)
+
+@app.route("/result")
+def result():
+    images = ["static/acc_conf_mat.png"]
+    return render_template("result.html", images=images)
 
 
 if __name__ == "__main__":

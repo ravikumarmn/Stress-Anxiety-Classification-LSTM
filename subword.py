@@ -58,7 +58,6 @@ def extract_data():
     x10final= dict([a, int(x)] for a, x in x10final.items())
     return (x1final,x2final,x3final,x4final,x5final,x6final,x7final,x8final,x9final,x10final)
 
-
 def find_sentence_sub_emotion(a,all_final):
     all_emotions = []
     if a in X:
@@ -104,13 +103,16 @@ def find_sentence_sub_emotion(a,all_final):
                 all_emotions.append(emo)
     else:
         return a
-
-    print(a, ' : ', {key: value for key, value in all_emotions})
     
     with open("result/subword_save.json", "r") as f:
         data = json.load(f)
     
-    data[a] = {key: value for key, value in all_emotions}
+    if a in data:
+        # Update existing data
+        data[a].update({key: value for key, value in all_emotions})
+    else:
+        # Add new data
+        data[a] = {key: value for key, value in all_emotions}
     
     with open("result/subword_save.json", "w") as f:
         json.dump(data, f)
@@ -125,4 +127,3 @@ def find_sentence_sub_emotion(a,all_final):
         return emotion + str(highest)
     else:
         return all_emotions[0][0] + str(all_emotions[0][1])
-
